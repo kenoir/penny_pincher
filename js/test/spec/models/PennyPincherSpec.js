@@ -1,5 +1,5 @@
 function PennyPincher(){
-	
+
 }
 PennyPincher.sort_denominations = function(a,b){
 	if(a.amount_in_pence > b.amount_in_pence)
@@ -12,8 +12,6 @@ PennyPincher.sort_denominations = function(a,b){
 PennyPincher.prototype.pinch = function(amount){
 	return [new Denomination( '50p', 50 )]; 
 }
-
-/*
 PennyPincher.default_denominations = [
 	new Denomination( '£2', 200 ),
 	new Denomination( '£1', 100 ),
@@ -24,7 +22,6 @@ PennyPincher.default_denominations = [
 	new Denomination( '2p',   2 ),
 	new Denomination( '1p',   1 )
 ];
-*/
 
 function Denomination( name, amount ){
 	this.amount_in_pence = amount;
