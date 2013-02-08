@@ -41,7 +41,7 @@ require(['underscore', 'jquery', 'jasmine-html'], function(_, $, jasmine){
  
   var specs = [];
  
-  specs.push('spec/models/PlaceholderSpec');
+  specs.push('spec/models/PennyPincherSpec');
  
   $(function(){
     require(specs, function(){
