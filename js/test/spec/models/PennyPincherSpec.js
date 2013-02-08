@@ -1,7 +1,12 @@
-function PennyPincher(){
+function PennyPincher(custom_denominations){
+	var denominations = custom_denominations; 
+	if( typeof denominations === 'undefined' ){
+		denominations = PennyPincher.default_denominations;				
+	}
 
+	this.denominations = denominations.sort(PennyPincher.compare_denominations);
 }
-PennyPincher.sort_denominations = function(a,b){
+PennyPincher.compare_denominations = function(a,b){
 	if(a.amount_in_pence > b.amount_in_pence)
 		return 1;
 	if(a.amount_in_pence < b.amount_in_pence)
@@ -29,25 +34,37 @@ function Denomination( name, amount ){
 }
 
 describe('PennyPincher',function(){
-	describe('#sort_denominations(new Denomination("50p",50),new Denomination("2p",2))',function(){
+	describe('#compare_denominations(new Denomination("50p",50),new Denomination("2p",2))',function(){
 		it('returns 1',function(){
-			expect(PennyPincher.sort_denominations(new Denomination("50p",50),new Denomination("2p",2))).toEqual(1);
+			expect(PennyPincher.compare_denominations(new Denomination("50p",50),new Denomination("2p",2))).toEqual(1);
 		});
 	});
-	describe('#sort_denominations(new Denomination("2p",2),new Denomination("50p",50))',function(){
+	describe('#compare_denominations(new Denomination("2p",2),new Denomination("50p",50))',function(){
 		it('returns -1',function(){
-			expect(PennyPincher.sort_denominations(new Denomination("2p",2),new Denomination("50p",50))).toEqual(-1);
+			expect(PennyPincher.compare_denominations(new Denomination("2p",2),new Denomination("50p",50))).toEqual(-1);
 		});
 	});
-	describe('#sort_denominations(new Denomination("2p",2),new Denomination("2p",2))',function(){
+	describe('#compare_denominations(new Denomination("2p",2),new Denomination("2p",2))',function(){
 		it('returns -1',function(){
-			expect(PennyPincher.sort_denominations(new Denomination("2p",2),new Denomination("2p",2))).toEqual(0);
+			expect(PennyPincher.compare_denominations(new Denomination("2p",2),new Denomination("2p",2))).toEqual(0);
 		});
 	});
 });
 
 describe('new PennyPincher', function(){
 	var subject = new PennyPincher();			
+
+	it('stores a default array of denominations', function(){
+		expect(true).toEqual(false);
+	});
+
+	it('accepts and stores a custom array of denominations', function(){
+		expect(true).toEqual(false);
+	});
+
+	it('sorts its array of denominations when initialised',function(){
+		expect(true).toEqual(false);
+	});
 
 	describe('#pinch(50)',function(){			
 		it('returns a single coin of type 50p', function(){
