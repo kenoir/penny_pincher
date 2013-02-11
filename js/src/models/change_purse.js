@@ -1,6 +1,6 @@
 define(['underscore'],function(_){
 
-	function ChangePurse(){
+	var ChangePurse = function ChangePurse(){
 		this.coins = {};
 	}
 

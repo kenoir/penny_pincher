@@ -1,5 +1,5 @@
 define(['underscore','models/denomination','models/change_purse'], function(_,Denomination,ChangePurse){
-	function PennyPincher(custom_denominations){
+	var PennyPincher = function PennyPincher(custom_denominations){
   	var denominations = custom_denominations; 
   	if( typeof denominations === 'undefined' ){
   		denominations = PennyPincher.default_denominations;				

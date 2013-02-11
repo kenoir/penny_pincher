@@ -36,39 +36,39 @@ describe('new PennyPincher', function(){
 		expect(subject.denominations).toEqual(custom_denominations.sort(PennyPincher.compare_denominations));
 	});
 
-	describe('Using default denominations',function(){			
+	describe('when initialised with default denominations',function(){			
 
-		describe('#pinch(0)',function(){ 
-			it('returns an empty change purse', function(){
-  			var subject = new PennyPincher();			
-  			change_purse = subject.pinch(0);			
-
-				expect(change_purse.constructor).toEqual(ChangePurse);
-				expect(change_purse.number_of_coins()).toEqual(0);
-			});
-		});
-
-  	describe('#pinch(50)',function(){			
-  		it('returns a change purse with a single coin of type 50p', function(){
-  			var subject = new PennyPincher();			
-  			change_purse = subject.pinch(50);			
-
-  			expect(change_purse.coins['50p']).toEqual(1);
-				expect(change_purse.number_of_coins()).toEqual(1);
-  		});
-  	});
+		describe('#pinch(amount_in_pennies)',function(){ 
+  		describe('when amount_in_pennies = 0',function(){ 
+  			it('returns an empty change purse', function(){
+    			var subject = new PennyPincher();			
+    			change_purse = subject.pinch(0);			
   
-  	describe('#pinch(250)',function(){
-  		it('returns a change purse with 1 coin of type 50p and 2 coins of type £1', function(){
-	 			var subject = new PennyPincher();			
-  			change_purse = subject.pinch(250);			
-
-console.log(change_purse);
-
-  			expect(change_purse.coins['50p']).toEqual(1);
-  			expect(change_purse.coins['£2']).toEqual(1);
-				expect(change_purse.number_of_coins()).toEqual(2);
+  				expect(change_purse.constructor).toEqual(ChangePurse);
+  				expect(change_purse.number_of_coins()).toEqual(0);
+  			});
   		});
+  
+    	describe('when amount_in_pennies = 50',function(){			
+    		it('returns a change purse with a single coin of type 50p', function(){
+    			var subject = new PennyPincher();			
+    			change_purse = subject.pinch(50);			
+  
+    			expect(change_purse.coins['50p']).toEqual(1);
+  				expect(change_purse.number_of_coins()).toEqual(1);
+    		});
+    	});
+    
+    	describe('when amount_in_pennies = 250',function(){
+    		it('returns a change purse with 1 coin of type 50p and 2 coins of type £1', function(){
+  	 			var subject = new PennyPincher();			
+    			change_purse = subject.pinch(250);			
+  
+    			expect(change_purse.coins['50p']).toEqual(1);
+    			expect(change_purse.coins['£2']).toEqual(1);
+  				expect(change_purse.number_of_coins()).toEqual(2);
+    		});
+    	});		
   	});		
 
 	});		

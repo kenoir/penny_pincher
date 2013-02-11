@@ -13,9 +13,9 @@ describe('new ChangePurse',function(){
 		});
 	});
 
-	describe('#number_of_coins : getting the number of coins of type', function(){
+	describe('#number_of_coins(type)', function(){
   	describe('when #add_coin("20p",2)',function(){
-  		describe('#number_of_coins()',function(){
+  		describe('when type = undefined',function(){
   			it('returns 2',function(){
   				var subject = new ChangePurse();
   				subject.add_coin("20p", 2);
@@ -25,7 +25,7 @@ describe('new ChangePurse',function(){
   	});
   
   	describe('when #add_coin("20p",5), #add_coin("10p",3)',function(){
-  		describe('#number_of_coins("20p")',function(){
+  		describe('when type = "20p"',function(){
 				it('returns 5',function(){
 					var subject = new ChangePurse();
 					subject.add_coin("20p",5);
