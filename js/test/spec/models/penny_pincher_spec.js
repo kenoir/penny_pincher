@@ -39,6 +39,18 @@ describe('new PennyPincher', function(){
 	describe('when initialised with default denominations',function(){			
 
 		describe('#pinch(amount_in_pennies)',function(){ 
+
+  		describe('when amount_in_pennies is N(ot)aN(umber)',function(){ 
+  			it('returns an empty change purse', function(){
+    			var subject = new PennyPincher();			
+    			change_purse = subject.pinch(NaN);			
+  
+  				expect(change_purse.constructor).toEqual(ChangePurse);
+  				expect(change_purse.number_of_coins()).toEqual(0);
+  			});
+  		});
+ 
+
   		describe('when amount_in_pennies = 0',function(){ 
   			it('returns an empty change purse', function(){
     			var subject = new PennyPincher();			
@@ -50,7 +62,7 @@ describe('new PennyPincher', function(){
   		});
   
     	describe('when amount_in_pennies = 50',function(){			
-    		it('returns a change purse with a single coin of type 50p', function(){
+    		it('returns a change purse with a single 50p coin', function(){
     			var subject = new PennyPincher();			
     			change_purse = subject.pinch(50);			
   
@@ -58,9 +70,22 @@ describe('new PennyPincher', function(){
   				expect(change_purse.number_of_coins()).toEqual(1);
     		});
     	});
-    
+
+    	describe('when amount_in_pennies = 123',function(){			
+    		it('returns a change purse with a one 1p, one 2p, one 20p, and £1', function(){
+    			var subject = new PennyPincher();			
+    			change_purse = subject.pinch(123);			
+ 
+    			expect(change_purse.coins['1p']).toEqual(1);
+    			expect(change_purse.coins['2p']).toEqual(1);
+    			expect(change_purse.coins['20p']).toEqual(1);
+    			expect(change_purse.coins['£1']).toEqual(1);
+  				expect(change_purse.number_of_coins()).toEqual(4);
+    		});
+    	});
+     
     	describe('when amount_in_pennies = 250',function(){
-    		it('returns a change purse with 1 coin of type 50p and 2 coins of type £1', function(){
+    		it('returns a change purse with one 50p, and two £1', function(){
   	 			var subject = new PennyPincher();			
     			change_purse = subject.pinch(250);			
   
@@ -69,7 +94,24 @@ describe('new PennyPincher', function(){
   				expect(change_purse.number_of_coins()).toEqual(2);
     		});
     	});		
+
+    	describe('when amount_in_pennies = 337',function(){			
+    		it('returns a change purse with a one 2p, one 5p, one 10p, one 20p, one £1 and one £2', function(){
+    			var subject = new PennyPincher();			
+    			change_purse = subject.pinch(337);			
+
+    			expect(change_purse.coins['2p']).toEqual(1);
+    			expect(change_purse.coins['5p']).toEqual(1);
+    			expect(change_purse.coins['10p']).toEqual(1);
+    			expect(change_purse.coins['20p']).toEqual(1);
+    			expect(change_purse.coins['£1']).toEqual(1);
+    			expect(change_purse.coins['£2']).toEqual(1);
+  				expect(change_purse.number_of_coins()).toEqual(6);
+    		});
+    	});
+ 
   	});		
+
 
 	});		
 
