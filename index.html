@@ -3,6 +3,7 @@
 	<head>
 		<title>Penny Pincher</title>
   	<script src="js/lib/require.js" data-main="js/src/boot"></script>
+		<link rel="stylesheet" href="css/main.css">
 	</head>
 	<body>
 
@@ -20,15 +21,16 @@
 			<% } %>
 		</script>
 
+		<h1>The Penny Pincher</h1>
 		<div id="penny-pincher"> 			
 		  <form class="amount-form">
-				<label for="amount">Enter an amount (e.g. &#163;123.45):</a> 
-				<input type="text" name="amount" class="amount"/>
+				<label for="amount">Enter an amount (e.g. &#163;123.45):</label> 
+				<input type="text" id="amount" name="amount" class="amount"/>
 			</form>
 			<div class="results">
 								
 			</div>
 		</div>	
-		<p>Have a look at the <a href="js/test/index.html"/>tests</a>.</p>
+		<p>Have a look at the <a href="js/test/index.html">tests</a>.</p>
 	</body>
 </html>
