@@ -3,8 +3,9 @@ require.config({
   paths: {
     jquery: 'lib/jquery',
     underscore: 'lib/underscore',
+    controllers: 'src/controllers',
     models: 'src/models',
-		view: 'src/views'
+		views: 'src/views'
   },
   shim: {
     underscore: {
@@ -13,7 +14,7 @@ require.config({
   }
 });
 
-require(['underscore', 'jquery','models/app'], function(_, $, App){
+require(['underscore', 'jquery','controllers/app'], function(_, $, App){
 	$(document).ready(function() {
 		window.App = new App();
 		window.App.start();		
