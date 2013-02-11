@@ -9,6 +9,7 @@
 
  		<script type="text/html" id='change-purse'>			
 			<% if(coins.length >= 1){ %>			
+			<div class="adorn">You will need precisely:</div>
 			<ol class="change-purse">
 				<% _.each(coins,function(coin){ %>			
 				<li><%=coin[0]%> &#215; <%=coin[1]%></li>
@@ -21,16 +22,16 @@
 			<% } %>
 		</script>
 
-		<h1>The Penny Pincher</h1>
 		<div id="penny-pincher"> 			
+			<h1>The Penny Pincher</h1>
 		  <form class="amount-form">
 				<label for="amount">Enter an amount (e.g. &#163;123.45):</label> 
 				<input type="text" id="amount" name="amount" class="amount"/>
 			</form>
 			<div class="results">
-								
+			  I'm waiting ...					
 			</div>
 		</div>	
-		<p>Have a look at the <a href="js/test/index.html">tests</a>.</p>
+		<div id="top-nav"><a href="js/test/index.html">The Tests</a></div>
 	</body>
 </html>
