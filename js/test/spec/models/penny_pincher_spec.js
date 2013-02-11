@@ -1,16 +1,16 @@
 describe('PennyPincher',function(){
 	describe('#compare_denominations(new Denomination("50p",50),new Denomination("2p",2))',function(){
-		it('returns 1',function(){
-			expect(PennyPincher.compare_denominations(new Denomination("50p",50),new Denomination("2p",2))).toEqual(1);
+		it('returns -1',function(){
+			expect(PennyPincher.compare_denominations(new Denomination("50p",50),new Denomination("2p",2))).toEqual(-1);
 		});
 	});
 	describe('#compare_denominations(new Denomination("2p",2),new Denomination("50p",50))',function(){
-		it('returns -1',function(){
-			expect(PennyPincher.compare_denominations(new Denomination("2p",2),new Denomination("50p",50))).toEqual(-1);
+		it('returns 1',function(){
+			expect(PennyPincher.compare_denominations(new Denomination("2p",2),new Denomination("50p",50))).toEqual(1);
 		});
 	});
 	describe('#compare_denominations(new Denomination("2p",2),new Denomination("2p",2))',function(){
-		it('returns -1',function(){
+		it('returns 0',function(){
 			expect(PennyPincher.compare_denominations(new Denomination("2p",2),new Denomination("2p",2))).toEqual(0);
 		});
 	});

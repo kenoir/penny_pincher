@@ -5,6 +5,21 @@
   	<script src="js/lib/require.js" data-main="js/src/boot"></script>
 	</head>
 	<body>
+
+ 		<script type="text/html" id='change-purse'>			
+			<% if(coins.length >= 1){ %>			
+			<ol class="change-purse">
+				<% _.each(coins,function(coin){ %>			
+				<li><%=coin[0]%> &#215; <%=coin[1]%></li>
+				<% }) %>
+			</ol>				
+			<% } else { %>
+			<div class="empty-purse">
+				That doesn't seem right.
+			</div>				
+			<% } %>
+		</script>
+
 		<div id="penny-pincher"> 			
 		  <form class="amount-form">
 				<label for="amount">Enter an amount (e.g. &#163;123.45):</a> 

@@ -9,15 +9,16 @@ define(['underscore','models/denomination','models/change_purse'], function(_,De
   }
   PennyPincher.compare_denominations = function(a,b){
   	if(a.amount_in_pence > b.amount_in_pence)
-  		return 1;
-  	if(a.amount_in_pence < b.amount_in_pence)
   		return -1;
+  	if(a.amount_in_pence < b.amount_in_pence)
+  		return 1;
   
   	return 0;
   }
   PennyPincher.prototype.pinch = function(amount){
 		var amount_remaining = amount;			
-		var change_purse = _.reduce(this.denominations.reverse(),function(change_purse,denomination){
+		var change_purse = _.reduce(this.denominations,function(change_purse,denomination){
+
 			var number_of_coins = 0;
 			while (amount_remaining >= denomination.amount_in_pence) {
 				amount_remaining -= denomination.amount_in_pence;			
