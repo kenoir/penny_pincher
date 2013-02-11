@@ -37,13 +37,24 @@ require(['underscore', 'jquery', 'jasmine-html'], function(_, $, jasmine){
 
   var specs = [];
  
-  specs.push('spec/models/PennyPincherSpec');
+  specs.push('spec/models/penny_pincher_spec');
+  specs.push('spec/models/change_purse_spec');
 
 // hack to make test assets available to tests while using requirejs - fix this!  
-require(['models/denomination','models/penny_pincher'],function(Denomination,PennyPincher){
+require(
+  [
+    'models/denomination',
+    'models/change_purse',
+    'models/penny_pincher'
+  ],function(
+		Denomination,
+		ChangePurse,
+		PennyPincher
+	){
 
-window.Denomination = Denomination;
-window.PennyPincher = PennyPincher;	  
+	window.Denomination = Denomination;
+	window.ChangePurse = ChangePurse;
+	window.PennyPincher = PennyPincher;	  
 
   $(function(){
     require(specs, function(){

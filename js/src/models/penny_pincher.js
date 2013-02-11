@@ -1,4 +1,4 @@
-define(['models/denomination'], function(Denomination){
+define(['underscore','models/denomination','models/change_purse'], function(_,Denomination,ChangePurse){
 	function PennyPincher(custom_denominations){
   	var denominations = custom_denominations; 
   	if( typeof denominations === 'undefined' ){
@@ -16,7 +16,21 @@ define(['models/denomination'], function(Denomination){
   	return 0;
   }
   PennyPincher.prototype.pinch = function(amount){
-  	return [new Denomination( '50p', 50 )]; 
+		var amount_remaining = amount;			
+		var change_purse = _.reduce(this.denominations.reverse(),function(change_purse,denomination){
+			var number_of_coins = 0;
+			while (amount_remaining >= denomination.amount_in_pence) {
+				amount_remaining -= denomination.amount_in_pence;			
+				number_of_coins++;
+			}				
+		
+			if( number_of_coins > 0 ){
+				change_purse.add_coin( denomination.id, number_of_coins );
+			}
+			return change_purse;
+		},new ChangePurse());
+
+  	return change_purse; 
   }
   PennyPincher.default_denominations = [
   	new Denomination( '£2', 200 ),
