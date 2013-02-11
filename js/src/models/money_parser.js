@@ -5,12 +5,12 @@ define(['underscore'],function(_){
 			this.config = {
 				decimal_seperator: '.',
 				large_unit_regexp: /^£/,
-				small_unit_regexp: /p$/
+				small_unit_regexp: /(\.)*p$/
 			};
 
 		};
 
-		MoneyParser.prototype.valid_input_string = function(input_string){
+		MoneyParser.prototype.sanitise_input_string = function(input_string){
 			var model = this;
 
 			var is_int = function(input_string){ 
@@ -19,43 +19,56 @@ define(['underscore'],function(_){
 				return matches[0]  == input_string;
 			};
 
-			var trim_unit_symbols = function(input_string){ 
-				var trimmed_string = input_string
-					.replace(model.config.large_unit_regexp,"")
-					.replace(model.config.small_unit_regexp,"");
+			var add_decimal_point_if_large_units = function(input_string){
+				if( (input_string.match(model.config.large_unit_regexp) != undefined)  &&
+						!(input_string.indexOf(model.config.decimal_seperator) >= 0)){
+					return input_string + ".0";					
+				}				
+				return input_string;
+			};	
 
-				return trimmed_string;
-			};
+			var is_float = function(input_string){
+				var split_string = input_string.split(model.config.decimal_seperator);
+				if( split_string.length > 2 ){ return false; } 
 
-			var working = input_string;			
+				var valid = true;
+				_.each( split_string, function( number_string ){
+					if(!(is_int(number_string))) { valid = false; }
+				});		
+				return valid;
+			};	
 
-			// Trim currency characters
-			working = trim_unit_symbols(input_string);			
+			// Trim small unit character
+			input_string = input_string.replace(model.config.small_unit_regexp,"");
 
-			// Check we have the correct number of decimal places 
-			if( working.split(model.config.decimal_seperator).length > 2 ){ 
-				return false; } 
+			// Make large unit character, decimal seperator uniform
+			input_string = add_decimal_point_if_large_units(input_string);
 
-			// Check each part of the string is a number
-			_.each( working, function( number_string ){
-				if(!(is_int(number_string))) { return false; }
-			});		
+			// Trim large unit charachter
+			input_string = input_string.replace(model.config.large_unit_regexp,"");
 
-			return true;
+			// Check we now have a valid float 
+			if( !is_float(input_string) ) { return NaN; }
+
+			return input_string; 
 		};
 
 		MoneyParser.prototype.amount_in_pennies_of = function(input_string){
-			if( !(this.valid_input_string(input_string) ) ) { return NaN; }
+			var model = this;
+						
+			var amount_is_in_large_units = function(input_string){
+				return input_string.split(model.config.decimal_seperator).length == 2;
+			}			
 
-			var amount_in_pence = parseFloat(input_string);
+			var sane_input_string = this.sanitise_input_string(input_string);
+			if( isNaN(sane_input_string) ) { return NaN; }
 
-			// We have a decimal seperator in a valid string
-			// So we need to multiply by 100
-			if( input_string.split(this.config.decimal_seperator).length == 2 ){
-				amount_in_pence *= 100;						
-			}
+			var amount = parseFloat(sane_input_string);
+			if ( amount_is_in_large_units(sane_input_string ) ) {
+				amount *= 100;
+			}			
 
-			return amount_in_pence; 
+			return Math.round(amount); 
 		};
 
 
